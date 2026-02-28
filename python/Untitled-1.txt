@@ -1,0 +1,3 @@
+python python/nick-bot.py localhost 7878 tasty-tuna-1491j57j Nick
+python python/sushi_go_client.py localhost 7878 tasty-tuna-1491j57j Ben
+python python/torunament_bot.py 10.8.1.191 7878 sweet-nori Nick
