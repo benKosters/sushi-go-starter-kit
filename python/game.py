@@ -1,0 +1,73 @@
+from player import Player
+from dataclasses import dataclass, field
+from typing import Optional
+
+
+@dataclass
+class GameState:
+    """Tracks the current state of the entire game."""
+
+    game_id: str
+    player_id: int
+    players : dict[str, Player]
+    my_name: str = ""
+    num_players: int = 0
+    round: int = 1
+    turn: int = 1
+
+    def __post_init__(self):
+        self.players = {}
+
+    def add_player(self, name: str) -> Player:
+        """Add a new player to the game."""
+        if name not in self.players:
+            self.players[name] = Player(name)
+        return self.players[name]
+
+    def get_player(self, name: str) -> Optional[Player]:
+        """Get a player by name."""
+        return self.players.get(name)
+
+    def get_my_player(self) -> Optional[Player]:
+        """Get the Player object representing this bot."""
+        return self.players.get(self.my_name)
+
+        # Subtract all played cards from all players
+        for player in self.players.values():
+            for card in player.played_cards:
+                if card in remaining:
+                    remaining[card] -= 1
+
+        # Subtract cards in my current hand
+        my_player = self.get_my_player()
+        if my_player:
+            for card in my_player.current_hand:
+                if card in remaining:
+                    remaining[card] -= 1
+
+        return remaining
+
+    def reset_round(self):
+        """Reset game state for a new round."""
+        self.turn = 1
+        for player in self.players.values():
+            player.reset_round()
+
+    def get_opponent_players(self) -> list[Player]:
+        """Get list of all opponent players (everyone except us)."""
+        return [p for p in self.players.values() if p.name != self.my_name]
+
+    def get_cards_in_circulation(self) -> int:
+        """Estimate how many cards are still being passed around."""
+        my_player = self.get_my_player()
+        if my_player:
+            return len(my_player.current_hand)
+        return 0
+
+    def is_early_game(self) -> bool:
+        """Check if we're in the early part of the round (many cards left)."""
+        return self.turn <= 3
+
+    def is_late_game(self) -> bool:
+        """Check if we're in the late part of the round (few cards left)."""
+        return self.turn >= 8
