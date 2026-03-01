@@ -2,6 +2,8 @@
 
 This repo is a fork or Atomic Object's suchi-go-starter-kit. For this hackathon, we chose to implement our Sushi Go bot in Python. The winning bot is `python/tournament_bot.py`. We used `python/sushi_go_client.py` as a baseline bot to test how well we could get our custom bot to perform. We tried a variety of methods and strategies that did not work very well and had scrapped them before the tournament.
 
+Here are the [rules](https://gamewright.com/pdfs/Rules/SushiGoTM-RULES.pdf) to the game. We did use Claude Sonnet for help with the development of our bot.
+
 # Sushi Go Starter Kit
 
 Build a bot to play Sushi Go against other players on a networked game server.
